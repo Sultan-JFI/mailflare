@@ -79,6 +79,10 @@
 			"migrations_dir": "drizzle/migrations",
 		},
 	],
+	// ⚠️ R2 binding is kept here because Mailflare's code expects it to exist.
+	// However, once all four B2_* environment variables are set, Mailflare will
+	// automatically use Backblaze B2 instead and this R2 bucket will simply be ignored.
+	// Do NOT delete this block entirely, or the deployment may fail due to a missing binding.
 	"r2_buckets": [
 		{
 			"binding": "BUCKET",
@@ -109,7 +113,6 @@
 			{
 				"queue": "mailflare-outbound",
 				"max_batch_size": 5,
-				// Sends wait out the undo window already; do not also wait for a batch to fill.
 				"max_batch_timeout": 1,
 				"max_retries": 3,
 			},
